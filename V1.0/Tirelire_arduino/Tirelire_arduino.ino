@@ -2,7 +2,7 @@
 #include <Servo.h>
 
 /*-------------NOTE----------------
- * rajouter option de delais de l'ouverture en fonction de la lettre entrée (en dernière entrée)
+ * 
  * 
  * 
  * 
@@ -61,26 +61,23 @@ void loop()
 
     if (buffer.subString(0,2) == mdp && doorOpen == true)// ICI
     {
-      myServo.write(angleInit + angleOuverture)
+      
       doorOpen = true;
       if (buffer[3] == "A")
       {
+        myServo.write(angleInit + angleOuverture);
         delay(15000);
-        myServo.write(angleInit)
+        myServo.write(angleInit);
       }
+      else if (buffer[3] == "D")
+        myServo.write(angleInit + angleOuverture);
 
     if (doorOpen == true && key == "D")
     {
-      myServo.write(angleInit)
+      myServo.write(angleInit);
       doorOpen = false;
   }
 }
-
-checkCode(String buffer)
-{
-  if (
-}
-
 
 
 
