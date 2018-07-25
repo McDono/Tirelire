@@ -16,25 +16,36 @@ Keypad keypad = Keypad(makeKeymap(keys), rowPins, colsPins, rows, cols);
 
 //SERVO
 Servo myServo;
-const int servoPin = 10;
+const byte servoPin = 10;
 
 //Mot de passe
 const String mdp = "419A";
-int k = 0; compte le nombre de caractère just d'affilé
+String buffer[4] = "FFFF";
+byte k = 0; //variable permettant le remplissage initial du 
 
 void setup()
 {
   Serial.begin(9600);
-  myServo.attach(10);
+  myServo.attach(servoPin);
 }
 
 void loop()
 {
   char key = keypad.getKey();
+  if (buffer[3] == "F") //Tant que le buffer n'est pas remplie, on remplie le buffer
+  {
+    buffer[k] = key;
+  }
+  else
+  {
+    for (byte i = 0; i < mdp.length(); i++)
+  }
   if (key != NO_KEY)
     Serial.println(key);
   
-  }
+  
+  
+  
   
 }
 
