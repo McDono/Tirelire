@@ -59,7 +59,7 @@ void loop()
       buffer[mdp.lenght()] = key;
     }
 
-    if (buffer.subString(0,2) == mdp && doorOpen == true)
+    if (buffer.subString(0,2) == mdp && doorOpen == true)// ICI
     {
       myServo.write(angleInit + angleOuverture)
       doorOpen = true;
