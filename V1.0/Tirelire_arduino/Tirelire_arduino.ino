@@ -28,6 +28,7 @@ Servo myServo;
 const byte servoPin = 10;
 const byte angleInit = 0; //A definir. Angle de départ du servo moteur
 const byte angleOuverture = 80; //Angle d'ouverture de la porte
+
 //Mot de passe
 const String mdp = "419";
 String buffer = "FFFF";
@@ -55,29 +56,40 @@ void loop()
     }
     else //Si le buffer est plein, on décale toute les lettres et la nouvelle entrée est mise en dernière position du buffer
     {
-      for (byte i = 0; i < mdp.length()-1; i++)
+      for (byte i = 0; i < buffer.length(); i++)
         buffer[i] = buffer[i+1];
       buffer[mdp.length()] = key;
     }
 
-    if (buffer.subString(0,3) == mdp && doorOpen == true)// ICI
+    Serial.println(buffer);
+
+    if ((buffer.substring(0,3) == mdp) && doorOpen == false)// ICI
     {
-      
+      Serial.println("OPEN");
       doorOpen = true;
       if (buffer[3] == 'A')
       {
+        Serial.println("OPEN : A");
         myServo.write(angleInit + angleOuverture);
         delay(15000);
         myServo.write(angleInit);
+        doorOpen = false;
       }
       else if (buffer[3] == 'D')
+      {
         myServo.write(angleInit + angleOuverture);
+      }
+    }
 
     if (doorOpen == true && key == 'D')
     {
+      Serial.println("CLOSE");
       myServo.write(angleInit);
       doorOpen = false;
+    }
+
   }
+    
 }
 
 
